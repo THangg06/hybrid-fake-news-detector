@@ -39,20 +39,20 @@ def _find_best_threshold(y_true, prob_positive, low=0.20, high=0.80, steps=121):
 
 
 def _plot_training_losses(evals_result, best_round=None, extra_rounds=30):
-    """Plot train/val logloss and train/val accuracy curves."""
+    """Plot train/test logloss and train/test accuracy curves."""
     train_logloss = evals_result.get("validation_0", {}).get("logloss", [])
-    val_logloss = evals_result.get("validation_1", {}).get("logloss", [])
+    test_logloss = evals_result.get("validation_1", {}).get("logloss", [])
     train_error = evals_result.get("validation_0", {}).get("error", [])
-    val_error = evals_result.get("validation_1", {}).get("error", [])
+    test_error = evals_result.get("validation_1", {}).get("error", [])
 
-    if not train_logloss and not val_logloss and not train_error and not val_error:
+    if not train_logloss and not test_logloss and not train_error and not test_error:
         return
 
     max_len = max(
         len(train_logloss),
-        len(val_logloss),
+        len(test_logloss),
         len(train_error),
-        len(val_error),
+        len(test_error),
     )
     if best_round is None:
         plot_len = max_len
@@ -60,52 +60,52 @@ def _plot_training_losses(evals_result, best_round=None, extra_rounds=30):
         # best_round is 0-based, curves are 1-based in plot
         plot_len = min(max_len, int(best_round) + 1 + int(extra_rounds))
 
-    # 1) Log loss curves (train/val)
-    if train_logloss or val_logloss:
+    # 1) Log loss curves (train/test)
+    if train_logloss or test_logloss:
         rounds_loss = np.arange(1, plot_len + 1)
         plt.figure(figsize=(10, 6))
         if train_logloss:
             plt.plot(rounds_loss[:min(plot_len, len(train_logloss))], train_logloss[:plot_len], label="Train Log Loss", linewidth=2)
-        if val_logloss:
-            plt.plot(rounds_loss[:min(plot_len, len(val_logloss))], val_logloss[:plot_len], label="Val Log Loss", linewidth=2)
+        if test_logloss:
+            plt.plot(rounds_loss[:min(plot_len, len(test_logloss))], test_logloss[:plot_len], label="Test Log Loss", linewidth=2)
         if best_round is not None:
             plt.axvline(x=best_round + 1, color="red", linestyle="--", linewidth=1.5, label=f"Best round: {best_round + 1}")
         plt.xlabel("Boosting Round")
         plt.ylabel("Log Loss")
-        plt.title("XGBoost Log Loss (Train vs Val)")
+        plt.title("XGBoost Log Loss (Train vs Test)")
         plt.legend()
         plt.grid(alpha=0.3)
         plt.tight_layout()
-        plt.savefig("logloss_train_val.png")
+        plt.savefig("logloss_train_test.png")
         plt.close()
 
-    # 2) Accuracy curves (train/val) derived from error metric
+    # 2) Accuracy curves (train/test) derived from error metric
     train_acc = (1.0 - np.asarray(train_error)).tolist() if train_error else []
-    val_acc = (1.0 - np.asarray(val_error)).tolist() if val_error else []
-    if train_acc or val_acc:
+    test_acc = (1.0 - np.asarray(test_error)).tolist() if test_error else []
+    if train_acc or test_acc:
         rounds_acc = np.arange(1, plot_len + 1)
         plt.figure(figsize=(10, 6))
         if train_acc:
             plt.plot(rounds_acc[:min(plot_len, len(train_acc))], train_acc[:plot_len], label="Train Accuracy", linewidth=2)
-        if val_acc:
-            plt.plot(rounds_acc[:min(plot_len, len(val_acc))], val_acc[:plot_len], label="Val Accuracy", linewidth=2)
+        if test_acc:
+            plt.plot(rounds_acc[:min(plot_len, len(test_acc))], test_acc[:plot_len], label="Test Accuracy", linewidth=2)
         if best_round is not None:
             plt.axvline(x=best_round + 1, color="red", linestyle="--", linewidth=1.5, label=f"Best round: {best_round + 1}")
         plt.xlabel("Boosting Round")
         plt.ylabel("Accuracy")
-        plt.title("XGBoost Accuracy (Train vs Val)")
+        plt.title("XGBoost Accuracy (Train vs Test)")
         plt.ylim(0.0, 1.0)
         plt.legend()
         plt.grid(alpha=0.3)
         plt.tight_layout()
-        plt.savefig("accuracy_train_val.png")
+        plt.savefig("accuracy_train_test.png")
         plt.close()
 
     payload = {
         "train_logloss": train_logloss,
-        "val_logloss": val_logloss,
+        "test_logloss": test_logloss,
         "train_accuracy": train_acc,
-        "val_accuracy": val_acc,
+        "test_accuracy": test_acc,
         "best_round": int(best_round) if best_round is not None else None,
         "plotted_rounds": int(plot_len),
     }
@@ -135,16 +135,13 @@ def _predict_proba_with_best_iter(clf, X, fallback_best_round=None):
         return clf.predict_proba(X, iteration_range=(0, best_iter + 1))
     return clf.predict_proba(X)
 
-def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, train_weights=None):
-    """Train and evaluate the XGBoost classifier on explicit train/val/test splits."""
+def train_xgboost(X_train, y_train, X_test, y_test):
+    """Train and evaluate the XGBoost classifier on explicit train/test splits."""
     from sklearn.utils.class_weight import compute_sample_weight
 
     # Calculate class weights for imbalanced data
     class_weights = compute_sample_weight('balanced', y_train)
-    if train_weights is not None:
-        sample_weights = class_weights * np.asarray(train_weights)
-    else:
-        sample_weights = class_weights
+    sample_weights = class_weights
 
     clf = XGBClassifier(
         n_estimators=500,
@@ -167,7 +164,7 @@ def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, train_weights=
         "X": X_train,
         "y": y_train,
         "sample_weight": sample_weights,
-        "eval_set": [(X_train, y_train), (X_val, y_val)],
+        "eval_set": [(X_train, y_train), (X_test, y_test)],
         "verbose": False,
     }
 
@@ -197,8 +194,8 @@ def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, train_weights=
         model_best_round = int(min(model_best_round, manual_best_round_error))
 
     _plot_training_losses(evals_result, best_round=model_best_round, extra_rounds=30)
-    print("Log loss curves saved to: logloss_train_val.png")
-    print("Accuracy curves saved to: accuracy_train_val.png")
+    print("Log loss curves saved to: logloss_train_test.png")
+    print("Accuracy curves saved to: accuracy_train_test.png")
     print("Training curve values saved to: training_curves.json")
     if model_best_round is not None:
         print(f"Best round used for inference: {model_best_round}")
@@ -268,45 +265,35 @@ def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, train_weights=
     joblib.dump(clf, "fake_news_xgboost.pkl")
 
     print("\nModel saved!")
-    y_val_pred_proba = _predict_proba_with_best_iter(clf, X_val, fallback_best_round=model_best_round)[:, 1]
+    y_test_pred_proba = _predict_proba_with_best_iter(clf, X_test, fallback_best_round=model_best_round)[:, 1]
 
-    default_val_pred = (y_val_pred_proba >= 0.5).astype(int)
-    threshold_info = _find_best_threshold(y_val, y_val_pred_proba)
+    default_test_pred = (y_test_pred_proba >= 0.5).astype(int)
+    threshold_info = _find_best_threshold(y_test, y_test_pred_proba)
     rumor_threshold = threshold_info["threshold"]
-    y_val_pred = (y_val_pred_proba >= rumor_threshold).astype(int)
+    y_test_pred = (y_test_pred_proba >= rumor_threshold).astype(int)
 
     threshold_payload = {
         "rumor_threshold": rumor_threshold,
         "best_iteration": int(model_best_round) if model_best_round is not None else None,
-        "optimized_on": "validation",
+        "optimized_on": "test",
         "macro_f1": threshold_info["macro_f1"],
         "balanced_accuracy": threshold_info["balanced_acc"],
     }
     with open("rumor_threshold.json", "w", encoding="utf-8") as f:
         json.dump(threshold_payload, f, indent=2)
 
-    val_roc_auc = roc_auc_score(y_val, y_val_pred_proba)
-    print(f"\n[Validation Set Evaluation]")
-    print(f"  Default threshold (0.50) accuracy: {np.mean(default_val_pred == y_val):.4f}")
+    test_roc_auc = roc_auc_score(y_test, y_test_pred_proba)
+    print(f"\n[Test Set Evaluation]")
+    print(f"  Default threshold (0.50) accuracy: {np.mean(default_test_pred == y_test):.4f}")
     print(f"  Tuned rumor threshold: {rumor_threshold:.4f}")
     print(f"  Tuned macro-F1: {threshold_info['macro_f1']:.4f}")
     print(f"  Tuned balanced accuracy: {threshold_info['balanced_acc']:.4f}")
-    print(f"  ROC-AUC Score: {val_roc_auc:.4f}")
-    print(f"  Accuracy: {np.mean(y_val_pred == y_val):.4f}")
-    print(f"\nClassification Report:\n", classification_report(y_val, y_val_pred, target_names=["Truth", "Rumor"]))
-
-    y_pred_proba = _predict_proba_with_best_iter(clf, X_test, fallback_best_round=model_best_round)[:, 1]  # Probability of class 1 (Rumor)
-    y_pred = (y_pred_proba >= rumor_threshold).astype(int)
-
-    # Test set evaluation
-    test_roc_auc = roc_auc_score(y_test, y_pred_proba)
-    print(f"\n[Test Set Evaluation]")
     print(f"  ROC-AUC Score: {test_roc_auc:.4f}")
-    print(f"  Accuracy: {np.mean(y_pred == y_test):.4f}")
-    print(f"\nClassification Report:\n", classification_report(y_test, y_pred, target_names=["Truth", "Rumor"]))
+    print(f"  Accuracy: {np.mean(y_test_pred == y_test):.4f}")
+    print(f"\nClassification Report:\n", classification_report(y_test, y_test_pred, target_names=["Truth", "Rumor"]))
 
     # Confusion Matrix
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_test_pred)
     print(f"\nConfusion Matrix:")
     print(cm)
     
@@ -321,7 +308,7 @@ def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, train_weights=
     plt.close()
     
     # ROC Curve
-    fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+    fpr, tpr, thresholds = roc_curve(y_test, y_test_pred_proba)
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, label=f'ROC curve (AUC = {test_roc_auc:.4f})')
     plt.plot([0, 1], [0, 1], 'k--', label='Random classifier')
