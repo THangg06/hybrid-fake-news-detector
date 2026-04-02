@@ -150,8 +150,7 @@ def train_xgboost(X_train, y_train, X_test, y_test):
         gamma=1.0,
         reg_alpha=4.0,
         reg_lambda=12.0,
-        learning_rate=0.002,
-        use_label_encoder=False, 
+        learning_rate=0.0001,
         eval_metric=['logloss', 'error'], 
         tree_method='hist',
         importance_type='gain',
@@ -171,11 +170,11 @@ def train_xgboost(X_train, y_train, X_test, y_test):
     # Compatibility across XGBoost versions:
     # some versions support early_stopping_rounds in fit(), others do not.
     try:
-        clf.fit(early_stopping_rounds=80, **fit_kwargs)
+        clf.fit(early_stopping_rounds=50, **fit_kwargs)
     except TypeError:
         # Some versions require early_stopping_rounds in constructor params.
         try:
-            clf.set_params(early_stopping_rounds=80)
+            clf.set_params(early_stopping_rounds=50)
             clf.fit(**fit_kwargs)
         except Exception:
             clf.fit(**fit_kwargs)
@@ -283,39 +282,26 @@ def train_xgboost(X_train, y_train, X_test, y_test):
         json.dump(threshold_payload, f, indent=2)
 
     test_roc_auc = roc_auc_score(y_test, y_test_pred_proba)
-    print(f"\n[Test Set Evaluation]")
-    print(f"  Default threshold (0.50) accuracy: {np.mean(default_test_pred == y_test):.4f}")
-    print(f"  Tuned rumor threshold: {rumor_threshold:.4f}")
-    print(f"  Tuned macro-F1: {threshold_info['macro_f1']:.4f}")
-    print(f"  Tuned balanced accuracy: {threshold_info['balanced_acc']:.4f}")
-    print(f"  ROC-AUC Score: {test_roc_auc:.4f}")
-    print(f"  Accuracy: {np.mean(y_test_pred == y_test):.4f}")
-    print(f"\nClassification Report:\n", classification_report(y_test, y_test_pred, target_names=["Truth", "Rumor"]))
-
-    # Confusion Matrix
+    
+    report = classification_report(y_test, y_test_pred, target_names=["Truth", "Rumor"])
     cm = confusion_matrix(y_test, y_test_pred)
-    print(f"\nConfusion Matrix:")
-    print(cm)
-    
-    # Plot confusion matrix
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=["Truth", "Rumor"], yticklabels=["Truth", "Rumor"])
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-    plt.title("Confusion Matrix")
-    plt.savefig("confusion_matrix.png")
-    print("Confusion matrix saved to: confusion_matrix.png")
-    plt.close()
-    
-    # ROC Curve
     fpr, tpr, thresholds = roc_curve(y_test, y_test_pred_proba)
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, label=f'ROC curve (AUC = {test_roc_auc:.4f})')
-    plt.plot([0, 1], [0, 1], 'k--', label='Random classifier')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve')
-    plt.legend()
-    plt.savefig("roc_curve.png")
-    print("ROC curve saved to: roc_curve.png")
-    plt.close()
+    
+    # Return all results as a dictionary
+    results = {
+        "default_accuracy": np.mean(default_test_pred == y_test),
+        "rumor_threshold": rumor_threshold,
+        "macro_f1": threshold_info['macro_f1'],
+        "balanced_accuracy": threshold_info['balanced_acc'],
+        "roc_auc": test_roc_auc,
+        "accuracy": np.mean(y_test_pred == y_test),
+        "classification_report": report,
+        "confusion_matrix": cm,
+        "fpr": fpr,
+        "tpr": tpr,
+        "y_test": y_test,
+        "y_test_pred": y_test_pred,
+        "y_test_pred_proba": y_test_pred_proba,
+    }
+    
+    return results
