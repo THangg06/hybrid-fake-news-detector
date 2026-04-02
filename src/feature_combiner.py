@@ -14,12 +14,9 @@ def combine_features(tfidf_matrix, roberta_embeddings, roberta_weight=2.0):
         Combined feature matrix
     """
 
-    # Scale RoBERTa features to balance importance with TF-IDF
-    roberta_scaled = roberta_embeddings * roberta_weight
-
     feature_blocks = [
         tfidf_matrix,           # TF-IDF features from text
-        roberta_scaled,         # RoBERTa embeddings from text
+        roberta_embeddings,         # RoBERTa embeddings from text
     ]
 
     return np.hstack(tuple(feature_blocks))
