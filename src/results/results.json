@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-04-16T09:21:15.541563",
+  "config": {
+    "n_estimators": 300,
+    "max_depth": 5,
+    "learning_rate": 0.07
+  },
+  "split_ratio": "80/20",
+  "features": "TF-IDF (768) + RoBERTa (768) + Engineered (5)",
+  "train_samples": 1711,
+  "test_samples": 428,
+  "metrics": {
+    "accuracy": 0.8037383177570093,
+    "precision": 0.7916666666666666,
+    "recall": 0.7755102040816326,
+    "f1_score": 0.7835051546391752,
+    "roc_auc": 0.8730867346938775
+  },
+  "confusion_matrix": {
+    "true_negatives": 192,
+    "false_positives": 40,
+    "false_negatives": 44,
+    "true_positives": 152
+  }
+}

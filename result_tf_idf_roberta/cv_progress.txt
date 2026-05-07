@@ -1,0 +1,888 @@
+================================================================================
+GRID SEARCH + K-FOLD CROSS-VALIDATION (k=5)
+Pipeline: For each config → evaluate on 5 folds → compute mean score
+Started: 2026-04-15 08:28:31
+================================================================================
+
+Loading train and test datasets (SEPARATELY)...
+Preparing TRAIN data for cross-validation...
+Preparing TEST data for final evaluation...
+
+📊 TRAIN SET STATISTICS (for CV):
+  Total samples: 1711
+  Label distribution:
+label
+0    902
+1    809
+Name: count, dtype: int64
+
+📊 TEST SET STATISTICS (for final evaluation):
+  Total samples: 428
+  Label distribution:
+label
+0    256
+1    172
+Name: count, dtype: int64
+
+Total configs to evaluate: 144
+Each config will be tested on 5 folds
+Total model trainings: 720
+
+==================================================
+🔁 Fold 1/5
+==================================================
+  → Extracting RoBERTa embeddings (once per fold)...
+  ✓ Config 1/144 done
+  ✓ Config 2/144 done
+  ✓ Config 3/144 done
+  ✓ Config 4/144 done
+  ✓ Config 5/144 done
+  ✓ Config 6/144 done
+  ✓ Config 7/144 done
+  ✓ Config 8/144 done
+  ✓ Config 9/144 done
+  ✓ Config 10/144 done
+  ✓ Config 11/144 done
+  ✓ Config 12/144 done
+  ✓ Config 13/144 done
+  ✓ Config 14/144 done
+  ✓ Config 15/144 done
+  ✓ Config 16/144 done
+  ✓ Config 17/144 done
+  ✓ Config 18/144 done
+  ✓ Config 19/144 done
+  ✓ Config 20/144 done
+  ✓ Config 21/144 done
+  ✓ Config 22/144 done
+  ✓ Config 23/144 done
+  ✓ Config 24/144 done
+  ✓ Config 25/144 done
+  ✓ Config 26/144 done
+  ✓ Config 27/144 done
+  ✓ Config 28/144 done
+  ✓ Config 29/144 done
+  ✓ Config 30/144 done
+  ✓ Config 31/144 done
+  ✓ Config 32/144 done
+  ✓ Config 33/144 done
+  ✓ Config 34/144 done
+  ✓ Config 35/144 done
+  ✓ Config 36/144 done
+  ✓ Config 37/144 done
+  ✓ Config 38/144 done
+  ✓ Config 39/144 done
+  ✓ Config 40/144 done
+  ✓ Config 41/144 done
+  ✓ Config 42/144 done
+  ✓ Config 43/144 done
+  ✓ Config 44/144 done
+  ✓ Config 45/144 done
+  ✓ Config 46/144 done
+  ✓ Config 47/144 done
+  ✓ Config 48/144 done
+  ✓ Config 49/144 done
+  ✓ Config 50/144 done
+  ✓ Config 51/144 done
+  ✓ Config 52/144 done
+  ✓ Config 53/144 done
+  ✓ Config 54/144 done
+  ✓ Config 55/144 done
+  ✓ Config 56/144 done
+  ✓ Config 57/144 done
+  ✓ Config 58/144 done
+  ✓ Config 59/144 done
+  ✓ Config 60/144 done
+  ✓ Config 61/144 done
+  ✓ Config 62/144 done
+  ✓ Config 63/144 done
+  ✓ Config 64/144 done
+  ✓ Config 65/144 done
+  ✓ Config 66/144 done
+  ✓ Config 67/144 done
+  ✓ Config 68/144 done
+  ✓ Config 69/144 done
+  ✓ Config 70/144 done
+  ✓ Config 71/144 done
+  ✓ Config 72/144 done
+  ✓ Config 73/144 done
+  ✓ Config 74/144 done
+  ✓ Config 75/144 done
+  ✓ Config 76/144 done
+  ✓ Config 77/144 done
+  ✓ Config 78/144 done
+  ✓ Config 79/144 done
+  ✓ Config 80/144 done
+  ✓ Config 81/144 done
+  ✓ Config 82/144 done
+  ✓ Config 83/144 done
+  ✓ Config 84/144 done
+  ✓ Config 85/144 done
+  ✓ Config 86/144 done
+  ✓ Config 87/144 done
+  ✓ Config 88/144 done
+  ✓ Config 89/144 done
+  ✓ Config 90/144 done
+  ✓ Config 91/144 done
+  ✓ Config 92/144 done
+  ✓ Config 93/144 done
+  ✓ Config 94/144 done
+  ✓ Config 95/144 done
+  ✓ Config 96/144 done
+  ✓ Config 97/144 done
+  ✓ Config 98/144 done
+  ✓ Config 99/144 done
+  ✓ Config 100/144 done
+  ✓ Config 101/144 done
+  ✓ Config 102/144 done
+  ✓ Config 103/144 done
+  ✓ Config 104/144 done
+  ✓ Config 105/144 done
+  ✓ Config 106/144 done
+  ✓ Config 107/144 done
+  ✓ Config 108/144 done
+  ✓ Config 109/144 done
+  ✓ Config 110/144 done
+  ✓ Config 111/144 done
+  ✓ Config 112/144 done
+  ✓ Config 113/144 done
+  ✓ Config 114/144 done
+  ✓ Config 115/144 done
+  ✓ Config 116/144 done
+  ✓ Config 117/144 done
+  ✓ Config 118/144 done
+  ✓ Config 119/144 done
+  ✓ Config 120/144 done
+  ✓ Config 121/144 done
+  ✓ Config 122/144 done
+  ✓ Config 123/144 done
+  ✓ Config 124/144 done
+  ✓ Config 125/144 done
+  ✓ Config 126/144 done
+  ✓ Config 127/144 done
+  ✓ Config 128/144 done
+  ✓ Config 129/144 done
+  ✓ Config 130/144 done
+  ✓ Config 131/144 done
+  ✓ Config 132/144 done
+  ✓ Config 133/144 done
+  ✓ Config 134/144 done
+  ✓ Config 135/144 done
+  ✓ Config 136/144 done
+  ✓ Config 137/144 done
+  ✓ Config 138/144 done
+  ✓ Config 139/144 done
+  ✓ Config 140/144 done
+  ✓ Config 141/144 done
+  ✓ Config 142/144 done
+  ✓ Config 143/144 done
+  ✓ Config 144/144 done
+✅ Done Fold 1
+
+==================================================
+🔁 Fold 2/5
+==================================================
+  → Extracting RoBERTa embeddings (once per fold)...
+  ✓ Config 145/144 done
+  ✓ Config 146/144 done
+  ✓ Config 147/144 done
+  ✓ Config 148/144 done
+  ✓ Config 149/144 done
+  ✓ Config 150/144 done
+  ✓ Config 151/144 done
+  ✓ Config 152/144 done
+  ✓ Config 153/144 done
+  ✓ Config 154/144 done
+  ✓ Config 155/144 done
+  ✓ Config 156/144 done
+  ✓ Config 157/144 done
+  ✓ Config 158/144 done
+  ✓ Config 159/144 done
+  ✓ Config 160/144 done
+  ✓ Config 161/144 done
+  ✓ Config 162/144 done
+  ✓ Config 163/144 done
+  ✓ Config 164/144 done
+  ✓ Config 165/144 done
+  ✓ Config 166/144 done
+  ✓ Config 167/144 done
+  ✓ Config 168/144 done
+  ✓ Config 169/144 done
+  ✓ Config 170/144 done
+  ✓ Config 171/144 done
+  ✓ Config 172/144 done
+  ✓ Config 173/144 done
+  ✓ Config 174/144 done
+  ✓ Config 175/144 done
+  ✓ Config 176/144 done
+  ✓ Config 177/144 done
+  ✓ Config 178/144 done
+  ✓ Config 179/144 done
+  ✓ Config 180/144 done
+  ✓ Config 181/144 done
+  ✓ Config 182/144 done
+  ✓ Config 183/144 done
+  ✓ Config 184/144 done
+  ✓ Config 185/144 done
+  ✓ Config 186/144 done
+  ✓ Config 187/144 done
+  ✓ Config 188/144 done
+  ✓ Config 189/144 done
+  ✓ Config 190/144 done
+  ✓ Config 191/144 done
+  ✓ Config 192/144 done
+  ✓ Config 193/144 done
+  ✓ Config 194/144 done
+  ✓ Config 195/144 done
+  ✓ Config 196/144 done
+  ✓ Config 197/144 done
+  ✓ Config 198/144 done
+  ✓ Config 199/144 done
+  ✓ Config 200/144 done
+  ✓ Config 201/144 done
+  ✓ Config 202/144 done
+  ✓ Config 203/144 done
+  ✓ Config 204/144 done
+  ✓ Config 205/144 done
+  ✓ Config 206/144 done
+  ✓ Config 207/144 done
+  ✓ Config 208/144 done
+  ✓ Config 209/144 done
+  ✓ Config 210/144 done
+  ✓ Config 211/144 done
+  ✓ Config 212/144 done
+  ✓ Config 213/144 done
+  ✓ Config 214/144 done
+  ✓ Config 215/144 done
+  ✓ Config 216/144 done
+  ✓ Config 217/144 done
+  ✓ Config 218/144 done
+  ✓ Config 219/144 done
+  ✓ Config 220/144 done
+  ✓ Config 221/144 done
+  ✓ Config 222/144 done
+  ✓ Config 223/144 done
+  ✓ Config 224/144 done
+  ✓ Config 225/144 done
+  ✓ Config 226/144 done
+  ✓ Config 227/144 done
+  ✓ Config 228/144 done
+  ✓ Config 229/144 done
+  ✓ Config 230/144 done
+  ✓ Config 231/144 done
+  ✓ Config 232/144 done
+  ✓ Config 233/144 done
+  ✓ Config 234/144 done
+  ✓ Config 235/144 done
+  ✓ Config 236/144 done
+  ✓ Config 237/144 done
+  ✓ Config 238/144 done
+  ✓ Config 239/144 done
+  ✓ Config 240/144 done
+  ✓ Config 241/144 done
+  ✓ Config 242/144 done
+  ✓ Config 243/144 done
+  ✓ Config 244/144 done
+  ✓ Config 245/144 done
+  ✓ Config 246/144 done
+  ✓ Config 247/144 done
+  ✓ Config 248/144 done
+  ✓ Config 249/144 done
+  ✓ Config 250/144 done
+  ✓ Config 251/144 done
+  ✓ Config 252/144 done
+  ✓ Config 253/144 done
+  ✓ Config 254/144 done
+  ✓ Config 255/144 done
+  ✓ Config 256/144 done
+  ✓ Config 257/144 done
+  ✓ Config 258/144 done
+  ✓ Config 259/144 done
+  ✓ Config 260/144 done
+  ✓ Config 261/144 done
+  ✓ Config 262/144 done
+  ✓ Config 263/144 done
+  ✓ Config 264/144 done
+  ✓ Config 265/144 done
+  ✓ Config 266/144 done
+  ✓ Config 267/144 done
+  ✓ Config 268/144 done
+  ✓ Config 269/144 done
+  ✓ Config 270/144 done
+  ✓ Config 271/144 done
+  ✓ Config 272/144 done
+  ✓ Config 273/144 done
+  ✓ Config 274/144 done
+  ✓ Config 275/144 done
+  ✓ Config 276/144 done
+  ✓ Config 277/144 done
+  ✓ Config 278/144 done
+  ✓ Config 279/144 done
+  ✓ Config 280/144 done
+  ✓ Config 281/144 done
+  ✓ Config 282/144 done
+  ✓ Config 283/144 done
+  ✓ Config 284/144 done
+  ✓ Config 285/144 done
+  ✓ Config 286/144 done
+  ✓ Config 287/144 done
+  ✓ Config 288/144 done
+✅ Done Fold 2
+
+==================================================
+🔁 Fold 3/5
+==================================================
+  → Extracting RoBERTa embeddings (once per fold)...
+  ✓ Config 289/144 done
+  ✓ Config 290/144 done
+  ✓ Config 291/144 done
+  ✓ Config 292/144 done
+  ✓ Config 293/144 done
+  ✓ Config 294/144 done
+  ✓ Config 295/144 done
+  ✓ Config 296/144 done
+  ✓ Config 297/144 done
+  ✓ Config 298/144 done
+  ✓ Config 299/144 done
+  ✓ Config 300/144 done
+  ✓ Config 301/144 done
+  ✓ Config 302/144 done
+  ✓ Config 303/144 done
+  ✓ Config 304/144 done
+  ✓ Config 305/144 done
+  ✓ Config 306/144 done
+  ✓ Config 307/144 done
+  ✓ Config 308/144 done
+  ✓ Config 309/144 done
+  ✓ Config 310/144 done
+  ✓ Config 311/144 done
+  ✓ Config 312/144 done
+  ✓ Config 313/144 done
+  ✓ Config 314/144 done
+  ✓ Config 315/144 done
+  ✓ Config 316/144 done
+  ✓ Config 317/144 done
+  ✓ Config 318/144 done
+  ✓ Config 319/144 done
+  ✓ Config 320/144 done
+  ✓ Config 321/144 done
+  ✓ Config 322/144 done
+  ✓ Config 323/144 done
+  ✓ Config 324/144 done
+  ✓ Config 325/144 done
+  ✓ Config 326/144 done
+  ✓ Config 327/144 done
+  ✓ Config 328/144 done
+  ✓ Config 329/144 done
+  ✓ Config 330/144 done
+  ✓ Config 331/144 done
+  ✓ Config 332/144 done
+  ✓ Config 333/144 done
+  ✓ Config 334/144 done
+  ✓ Config 335/144 done
+  ✓ Config 336/144 done
+  ✓ Config 337/144 done
+  ✓ Config 338/144 done
+  ✓ Config 339/144 done
+  ✓ Config 340/144 done
+  ✓ Config 341/144 done
+  ✓ Config 342/144 done
+  ✓ Config 343/144 done
+  ✓ Config 344/144 done
+  ✓ Config 345/144 done
+  ✓ Config 346/144 done
+  ✓ Config 347/144 done
+  ✓ Config 348/144 done
+  ✓ Config 349/144 done
+  ✓ Config 350/144 done
+  ✓ Config 351/144 done
+  ✓ Config 352/144 done
+  ✓ Config 353/144 done
+  ✓ Config 354/144 done
+  ✓ Config 355/144 done
+  ✓ Config 356/144 done
+  ✓ Config 357/144 done
+  ✓ Config 358/144 done
+  ✓ Config 359/144 done
+  ✓ Config 360/144 done
+  ✓ Config 361/144 done
+  ✓ Config 362/144 done
+  ✓ Config 363/144 done
+  ✓ Config 364/144 done
+  ✓ Config 365/144 done
+  ✓ Config 366/144 done
+  ✓ Config 367/144 done
+  ✓ Config 368/144 done
+  ✓ Config 369/144 done
+  ✓ Config 370/144 done
+  ✓ Config 371/144 done
+  ✓ Config 372/144 done
+  ✓ Config 373/144 done
+  ✓ Config 374/144 done
+  ✓ Config 375/144 done
+  ✓ Config 376/144 done
+  ✓ Config 377/144 done
+  ✓ Config 378/144 done
+  ✓ Config 379/144 done
+  ✓ Config 380/144 done
+  ✓ Config 381/144 done
+  ✓ Config 382/144 done
+  ✓ Config 383/144 done
+  ✓ Config 384/144 done
+  ✓ Config 385/144 done
+  ✓ Config 386/144 done
+  ✓ Config 387/144 done
+  ✓ Config 388/144 done
+  ✓ Config 389/144 done
+  ✓ Config 390/144 done
+  ✓ Config 391/144 done
+  ✓ Config 392/144 done
+  ✓ Config 393/144 done
+  ✓ Config 394/144 done
+  ✓ Config 395/144 done
+  ✓ Config 396/144 done
+  ✓ Config 397/144 done
+  ✓ Config 398/144 done
+  ✓ Config 399/144 done
+  ✓ Config 400/144 done
+  ✓ Config 401/144 done
+  ✓ Config 402/144 done
+  ✓ Config 403/144 done
+  ✓ Config 404/144 done
+  ✓ Config 405/144 done
+  ✓ Config 406/144 done
+  ✓ Config 407/144 done
+  ✓ Config 408/144 done
+  ✓ Config 409/144 done
+  ✓ Config 410/144 done
+  ✓ Config 411/144 done
+  ✓ Config 412/144 done
+  ✓ Config 413/144 done
+  ✓ Config 414/144 done
+  ✓ Config 415/144 done
+  ✓ Config 416/144 done
+  ✓ Config 417/144 done
+  ✓ Config 418/144 done
+  ✓ Config 419/144 done
+  ✓ Config 420/144 done
+  ✓ Config 421/144 done
+  ✓ Config 422/144 done
+  ✓ Config 423/144 done
+  ✓ Config 424/144 done
+  ✓ Config 425/144 done
+  ✓ Config 426/144 done
+  ✓ Config 427/144 done
+  ✓ Config 428/144 done
+  ✓ Config 429/144 done
+  ✓ Config 430/144 done
+  ✓ Config 431/144 done
+  ✓ Config 432/144 done
+✅ Done Fold 3
+
+==================================================
+🔁 Fold 4/5
+==================================================
+  → Extracting RoBERTa embeddings (once per fold)...
+  ✓ Config 433/144 done
+  ✓ Config 434/144 done
+  ✓ Config 435/144 done
+  ✓ Config 436/144 done
+  ✓ Config 437/144 done
+  ✓ Config 438/144 done
+  ✓ Config 439/144 done
+  ✓ Config 440/144 done
+  ✓ Config 441/144 done
+  ✓ Config 442/144 done
+  ✓ Config 443/144 done
+  ✓ Config 444/144 done
+  ✓ Config 445/144 done
+  ✓ Config 446/144 done
+  ✓ Config 447/144 done
+  ✓ Config 448/144 done
+  ✓ Config 449/144 done
+  ✓ Config 450/144 done
+  ✓ Config 451/144 done
+  ✓ Config 452/144 done
+  ✓ Config 453/144 done
+  ✓ Config 454/144 done
+  ✓ Config 455/144 done
+  ✓ Config 456/144 done
+  ✓ Config 457/144 done
+  ✓ Config 458/144 done
+  ✓ Config 459/144 done
+  ✓ Config 460/144 done
+  ✓ Config 461/144 done
+  ✓ Config 462/144 done
+  ✓ Config 463/144 done
+  ✓ Config 464/144 done
+  ✓ Config 465/144 done
+  ✓ Config 466/144 done
+  ✓ Config 467/144 done
+  ✓ Config 468/144 done
+  ✓ Config 469/144 done
+  ✓ Config 470/144 done
+  ✓ Config 471/144 done
+  ✓ Config 472/144 done
+  ✓ Config 473/144 done
+  ✓ Config 474/144 done
+  ✓ Config 475/144 done
+  ✓ Config 476/144 done
+  ✓ Config 477/144 done
+  ✓ Config 478/144 done
+  ✓ Config 479/144 done
+  ✓ Config 480/144 done
+  ✓ Config 481/144 done
+  ✓ Config 482/144 done
+  ✓ Config 483/144 done
+  ✓ Config 484/144 done
+  ✓ Config 485/144 done
+  ✓ Config 486/144 done
+  ✓ Config 487/144 done
+  ✓ Config 488/144 done
+  ✓ Config 489/144 done
+  ✓ Config 490/144 done
+  ✓ Config 491/144 done
+  ✓ Config 492/144 done
+  ✓ Config 493/144 done
+  ✓ Config 494/144 done
+  ✓ Config 495/144 done
+  ✓ Config 496/144 done
+  ✓ Config 497/144 done
+  ✓ Config 498/144 done
+  ✓ Config 499/144 done
+  ✓ Config 500/144 done
+  ✓ Config 501/144 done
+  ✓ Config 502/144 done
+  ✓ Config 503/144 done
+  ✓ Config 504/144 done
+  ✓ Config 505/144 done
+  ✓ Config 506/144 done
+  ✓ Config 507/144 done
+  ✓ Config 508/144 done
+  ✓ Config 509/144 done
+  ✓ Config 510/144 done
+  ✓ Config 511/144 done
+  ✓ Config 512/144 done
+  ✓ Config 513/144 done
+  ✓ Config 514/144 done
+  ✓ Config 515/144 done
+  ✓ Config 516/144 done
+  ✓ Config 517/144 done
+  ✓ Config 518/144 done
+  ✓ Config 519/144 done
+  ✓ Config 520/144 done
+  ✓ Config 521/144 done
+  ✓ Config 522/144 done
+  ✓ Config 523/144 done
+  ✓ Config 524/144 done
+  ✓ Config 525/144 done
+  ✓ Config 526/144 done
+  ✓ Config 527/144 done
+  ✓ Config 528/144 done
+  ✓ Config 529/144 done
+  ✓ Config 530/144 done
+  ✓ Config 531/144 done
+  ✓ Config 532/144 done
+  ✓ Config 533/144 done
+  ✓ Config 534/144 done
+  ✓ Config 535/144 done
+  ✓ Config 536/144 done
+  ✓ Config 537/144 done
+  ✓ Config 538/144 done
+  ✓ Config 539/144 done
+  ✓ Config 540/144 done
+  ✓ Config 541/144 done
+  ✓ Config 542/144 done
+  ✓ Config 543/144 done
+  ✓ Config 544/144 done
+  ✓ Config 545/144 done
+  ✓ Config 546/144 done
+  ✓ Config 547/144 done
+  ✓ Config 548/144 done
+  ✓ Config 549/144 done
+  ✓ Config 550/144 done
+  ✓ Config 551/144 done
+  ✓ Config 552/144 done
+  ✓ Config 553/144 done
+  ✓ Config 554/144 done
+  ✓ Config 555/144 done
+  ✓ Config 556/144 done
+  ✓ Config 557/144 done
+  ✓ Config 558/144 done
+  ✓ Config 559/144 done
+  ✓ Config 560/144 done
+  ✓ Config 561/144 done
+  ✓ Config 562/144 done
+  ✓ Config 563/144 done
+  ✓ Config 564/144 done
+  ✓ Config 565/144 done
+  ✓ Config 566/144 done
+  ✓ Config 567/144 done
+  ✓ Config 568/144 done
+  ✓ Config 569/144 done
+  ✓ Config 570/144 done
+  ✓ Config 571/144 done
+  ✓ Config 572/144 done
+  ✓ Config 573/144 done
+  ✓ Config 574/144 done
+  ✓ Config 575/144 done
+  ✓ Config 576/144 done
+✅ Done Fold 4
+
+==================================================
+🔁 Fold 5/5
+==================================================
+  → Extracting RoBERTa embeddings (once per fold)...
+  ✓ Config 577/144 done
+  ✓ Config 578/144 done
+  ✓ Config 579/144 done
+  ✓ Config 580/144 done
+  ✓ Config 581/144 done
+  ✓ Config 582/144 done
+  ✓ Config 583/144 done
+  ✓ Config 584/144 done
+  ✓ Config 585/144 done
+  ✓ Config 586/144 done
+  ✓ Config 587/144 done
+  ✓ Config 588/144 done
+  ✓ Config 589/144 done
+  ✓ Config 590/144 done
+  ✓ Config 591/144 done
+  ✓ Config 592/144 done
+  ✓ Config 593/144 done
+  ✓ Config 594/144 done
+  ✓ Config 595/144 done
+  ✓ Config 596/144 done
+  ✓ Config 597/144 done
+  ✓ Config 598/144 done
+  ✓ Config 599/144 done
+  ✓ Config 600/144 done
+  ✓ Config 601/144 done
+  ✓ Config 602/144 done
+  ✓ Config 603/144 done
+  ✓ Config 604/144 done
+  ✓ Config 605/144 done
+  ✓ Config 606/144 done
+  ✓ Config 607/144 done
+  ✓ Config 608/144 done
+  ✓ Config 609/144 done
+  ✓ Config 610/144 done
+  ✓ Config 611/144 done
+  ✓ Config 612/144 done
+  ✓ Config 613/144 done
+  ✓ Config 614/144 done
+  ✓ Config 615/144 done
+  ✓ Config 616/144 done
+  ✓ Config 617/144 done
+  ✓ Config 618/144 done
+  ✓ Config 619/144 done
+  ✓ Config 620/144 done
+  ✓ Config 621/144 done
+  ✓ Config 622/144 done
+  ✓ Config 623/144 done
+  ✓ Config 624/144 done
+  ✓ Config 625/144 done
+  ✓ Config 626/144 done
+  ✓ Config 627/144 done
+  ✓ Config 628/144 done
+  ✓ Config 629/144 done
+  ✓ Config 630/144 done
+  ✓ Config 631/144 done
+  ✓ Config 632/144 done
+  ✓ Config 633/144 done
+  ✓ Config 634/144 done
+  ✓ Config 635/144 done
+  ✓ Config 636/144 done
+  ✓ Config 637/144 done
+  ✓ Config 638/144 done
+  ✓ Config 639/144 done
+  ✓ Config 640/144 done
+  ✓ Config 641/144 done
+  ✓ Config 642/144 done
+  ✓ Config 643/144 done
+  ✓ Config 644/144 done
+  ✓ Config 645/144 done
+  ✓ Config 646/144 done
+  ✓ Config 647/144 done
+  ✓ Config 648/144 done
+  ✓ Config 649/144 done
+  ✓ Config 650/144 done
+  ✓ Config 651/144 done
+  ✓ Config 652/144 done
+  ✓ Config 653/144 done
+  ✓ Config 654/144 done
+  ✓ Config 655/144 done
+  ✓ Config 656/144 done
+  ✓ Config 657/144 done
+  ✓ Config 658/144 done
+  ✓ Config 659/144 done
+  ✓ Config 660/144 done
+  ✓ Config 661/144 done
+  ✓ Config 662/144 done
+  ✓ Config 663/144 done
+  ✓ Config 664/144 done
+  ✓ Config 665/144 done
+  ✓ Config 666/144 done
+  ✓ Config 667/144 done
+  ✓ Config 668/144 done
+  ✓ Config 669/144 done
+  ✓ Config 670/144 done
+  ✓ Config 671/144 done
+  ✓ Config 672/144 done
+  ✓ Config 673/144 done
+  ✓ Config 674/144 done
+  ✓ Config 675/144 done
+  ✓ Config 676/144 done
+  ✓ Config 677/144 done
+  ✓ Config 678/144 done
+  ✓ Config 679/144 done
+  ✓ Config 680/144 done
+  ✓ Config 681/144 done
+  ✓ Config 682/144 done
+  ✓ Config 683/144 done
+  ✓ Config 684/144 done
+  ✓ Config 685/144 done
+  ✓ Config 686/144 done
+  ✓ Config 687/144 done
+  ✓ Config 688/144 done
+  ✓ Config 689/144 done
+  ✓ Config 690/144 done
+  ✓ Config 691/144 done
+  ✓ Config 692/144 done
+  ✓ Config 693/144 done
+  ✓ Config 694/144 done
+  ✓ Config 695/144 done
+  ✓ Config 696/144 done
+  ✓ Config 697/144 done
+  ✓ Config 698/144 done
+  ✓ Config 699/144 done
+  ✓ Config 700/144 done
+  ✓ Config 701/144 done
+  ✓ Config 702/144 done
+  ✓ Config 703/144 done
+  ✓ Config 704/144 done
+  ✓ Config 705/144 done
+  ✓ Config 706/144 done
+  ✓ Config 707/144 done
+  ✓ Config 708/144 done
+  ✓ Config 709/144 done
+  ✓ Config 710/144 done
+  ✓ Config 711/144 done
+  ✓ Config 712/144 done
+  ✓ Config 713/144 done
+  ✓ Config 714/144 done
+  ✓ Config 715/144 done
+  ✓ Config 716/144 done
+  ✓ Config 717/144 done
+  ✓ Config 718/144 done
+  ✓ Config 719/144 done
+  ✓ Config 720/144 done
+✅ Done Fold 5
+
+================================================================================
+FINDING BEST CONFIG ACROSS ALL FOLDS
+================================================================================
+
+🏆 BEST CONFIG (by Mean Macro-F1 across 5 folds):
+  Mean F1: 0.8000 ± 0.0213
+  Fold scores: ['0.8333', '0.7736', '0.8066', '0.7802', '0.8064']
+
+  Configuration:
+  {'tfidf_max_features': 768, 'tfidf_min_df': 4, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+================================================================================
+TOP 10 BEST CONFIGS
+================================================================================
+
+1. Mean F1: 0.8000 ± 0.0213
+   Fold scores: ['0.8333', '0.7736', '0.8066', '0.7802', '0.8064']
+   {'tfidf_max_features': 768, 'tfidf_min_df': 4, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+2. Mean F1: 0.7970 ± 0.0232
+   Fold scores: ['0.8360', '0.7767', '0.7950', '0.7711', '0.8062']
+   {'tfidf_max_features': 768, 'tfidf_min_df': 4, 'xgb_n_estimators': 300, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+3. Mean F1: 0.7965 ± 0.0208
+   Fold scores: ['0.8274', '0.8002', '0.8008', '0.7624', '0.7919']
+   {'tfidf_max_features': 2046, 'tfidf_min_df': 3, 'xgb_n_estimators': 300, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+4. Mean F1: 0.7965 ± 0.0104
+   Fold scores: ['0.8035', '0.7943', '0.7891', '0.7832', '0.8125']
+   {'tfidf_max_features': 1536, 'tfidf_min_df': 5, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 3}
+
+5. Mean F1: 0.7965 ± 0.0104
+   Fold scores: ['0.8035', '0.7943', '0.7891', '0.7832', '0.8125']
+   {'tfidf_max_features': 2046, 'tfidf_min_df': 5, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 3}
+
+6. Mean F1: 0.7960 ± 0.0159
+   Fold scores: ['0.8271', '0.7915', '0.7921', '0.7833', '0.7859']
+   {'tfidf_max_features': 1536, 'tfidf_min_df': 3, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+7. Mean F1: 0.7954 ± 0.0168
+   Fold scores: ['0.8216', '0.7913', '0.7832', '0.7745', '0.8066']
+   {'tfidf_max_features': 768, 'tfidf_min_df': 6, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+8. Mean F1: 0.7954 ± 0.0168
+   Fold scores: ['0.8216', '0.7913', '0.7832', '0.7745', '0.8066']
+   {'tfidf_max_features': 1536, 'tfidf_min_df': 6, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+9. Mean F1: 0.7954 ± 0.0168
+   Fold scores: ['0.8216', '0.7913', '0.7832', '0.7745', '0.8066']
+   {'tfidf_max_features': 2046, 'tfidf_min_df': 6, 'xgb_n_estimators': 500, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 8}
+
+10. Mean F1: 0.7948 ± 0.0102
+   Fold scores: ['0.7984', '0.7915', '0.8126', '0.7884', '0.7830']
+   {'tfidf_max_features': 768, 'tfidf_min_df': 6, 'xgb_n_estimators': 300, 'xgb_learning_rate': 0.07, 'xgb_max_depth': 5}
+
+✅ Results saved to: grid_search_results.json
+
+================================================================================
+RETRAINING MODEL ON FULL TRAIN SET
+================================================================================
+
+Using best config from CV:
+  TF-IDF max_features: 768
+  TF-IDF min_df: 4
+  XGBoost n_estimators: 500
+  XGBoost learning_rate: 0.07
+  XGBoost max_depth: 8
+
+  → Extracting RoBERTa embeddings for full train set...
+  → Computing TF-IDF for full train set...
+  → Training final model on full train set...
+✅ Final model trained successfully
+
+================================================================================
+EVALUATING FINAL MODEL ON TEST SET
+================================================================================
+
+  → Extracting RoBERTa embeddings for test set...
+  → Computing TF-IDF for test set (using fitted vectorizer)...
+  → Making predictions on test set...
+
+📊 TEST SET RESULTS:
+  Accuracy: 0.6589
+  Balanced Accuracy: 0.6500
+  Macro F1: 0.6484
+  Micro F1: 0.6589
+  ROC-AUC: 0.7030
+
+  Confusion Matrix:
+    TN=178, FP=78
+    FN=68, TP=104
+
+================================================================================
+SAVING FINAL RESULTS AND MODELS
+================================================================================
+
+✅ Final results saved to: final_results.json
+
+  → Saving final XGBoost model...
+✅ Model saved to: final_xgboost_model.pkl
+
+  → Saving TF-IDF vectorizer...
+✅ Vectorizer saved to: final_tfidf_vectorizer.pkl
+
+================================================================================
+PIPELINE COMPLETED SUCCESSFULLY
+Finished: 2026-04-15 09:18:45
+================================================================================
